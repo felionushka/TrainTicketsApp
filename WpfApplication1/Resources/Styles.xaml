@@ -3,7 +3,7 @@
     <Style TargetType="Grid" x:Key="BackgroundGridStyle">
 		<Setter Property="Background">
 			<Setter.Value>
-				<ImageBrush ImageSource="/WpfApplication1;component/Resources/login.jpg" Stretch="Uniform " AlignmentX="Center" AlignmentY="Top"/>
+				<ImageBrush ImageSource="/TrainTicketsApp;component/Resources/login.jpg" Stretch="Uniform " AlignmentX="Center" AlignmentY="Top"/>
 			</Setter.Value>
 		</Setter>
 	</Style>

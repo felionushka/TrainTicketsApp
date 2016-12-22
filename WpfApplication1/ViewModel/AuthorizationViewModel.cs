@@ -1,12 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
-using WpfApplication1.Model;
+using TrainTicketsApp.Model;
 
-namespace WpfApplication1.ViewModel
+namespace TrainTicketsApp.ViewModel
 {
     public enum CarriageType
     {
@@ -18,7 +17,7 @@ namespace WpfApplication1.ViewModel
         Econom
     };
 
-    public sealed class ViewModel : ObservableObject
+    public sealed class AuthorizationViewModel : ObservableObject
     {
         private string _loginText;
 	    private string _passwordText;
@@ -27,14 +26,7 @@ namespace WpfApplication1.ViewModel
         private RelayCommand _loginCommand;
 
         private bool _isErrorMessageVisible;
-		private string _startCityText;
-	    private string _endCityText;
-	    private string _dateText;
         private object _selectedItem;
-
-	    public ViewModel()
-	    {
-	    }
 
 	    public event EventHandler<string> ShowAnotherWindow;
 
@@ -66,8 +58,6 @@ namespace WpfApplication1.ViewModel
 				LoginCommand.RaiseCanExecuteChanged();
 		    }
 	    }
-
-	   
 
 	    public bool IsErrorMessageVisible
 	    {
@@ -111,6 +101,5 @@ namespace WpfApplication1.ViewModel
 		    var handler = ShowAnotherWindow;
 		    if (handler != null) handler(this, e);
 	    }
-
     }
 }

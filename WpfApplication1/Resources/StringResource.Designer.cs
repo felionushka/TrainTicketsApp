@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace WpfApplication1.Resources {
+namespace TrainTicketsApp.Resources {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace WpfApplication1.Resources {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("WpfApplication1.Resources.StringResource", typeof(StringResource).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("TrainTicketsApp.Resources.StringResource", typeof(StringResource).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;

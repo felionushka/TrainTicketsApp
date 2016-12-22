@@ -1,24 +1,25 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Data.SqlTypes;
 using System.Linq;
 using System.Windows;
-using System.Windows.Controls;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
-using WpfApplication1.Model;
+using TrainTicketsApp.Model;
 
-namespace WpfApplication1.ViewModel
+namespace TrainTicketsApp.ViewModel
 {
-    public class  AnotherViewModel : ObservableObject
+    public class  MainSearchTicketViewModel : ObservableObject
     {
         private readonly string _username;
+
         private RelayCommand _searchCommand;
 
 	    private string _startCityText;
+
 		private string _endCityText;
+
 		private DateTime _date;
+
 	    private string _selectedItem;
 
 	    private  RelayCommand _returnTicketCommand;
@@ -31,31 +32,16 @@ namespace WpfApplication1.ViewModel
 
 	    public event EventHandler<AggregationItem> ShowAddingTicketWindow ; 
 
-        public AnotherViewModel(string username)
+        public MainSearchTicketViewModel(string username)
         {
 	        _username = username;
 	      
 			Date = new DateTime(2016, 8, 24);
-			Tickets = new ObservableCollection<TICKET>();
-			StartStations = new ObservableCollection<STATION>();
-			EndStations = new ObservableCollection<STATION>();
-			Places = new ObservableCollection<PLACE>();
-			Carriages = new ObservableCollection<CARRIAGE>();
-			Trains = new ObservableCollection<TRAIN>();
 			ResultCollection = new ObservableCollection<AggregationItem>();
         }
 
-	    public ObservableCollection<TRAIN> Trains { get; private set; }
-
-	    public ObservableCollection<CARRIAGE> Carriages { get; private set; }
-
-	    public ObservableCollection<PLACE> Places { get; private set; }
-
-	    public ObservableCollection<STATION> StartStations { get; private set; }
 		public ObservableCollection<AggregationItem> ResultCollection { get; private set; }
 
-		public ObservableCollection<STATION> EndStations { get; private set; }
-	   
 		public string StartCityText
 		{
 			get { return _startCityText; }
@@ -107,10 +93,7 @@ namespace WpfApplication1.ViewModel
 		    {
 			    Set(ref _selectedTicket, value);
 		    }
-		    
 	    }
-
-	    public ObservableCollection<TICKET> Tickets { get; private set; }
 
         public string Username
         {
@@ -150,17 +133,11 @@ namespace WpfApplication1.ViewModel
 
 	    private void Search()
         {
-			Tickets.Clear();
-			StartStations.Clear();
-			EndStations.Clear();
-			Places.Clear();
-			Trains.Clear();
-			Carriages.Clear();
 			ResultCollection.Clear();
 
 	        if (SelectedItem == null)
 			        {
-				        System.Windows.MessageBox.Show("Будь ласка, виберіть тип вагону.");
+				        MessageBox.Show("Будь ласка, виберіть тип вагону.");
 			        }
 
 	        using (var context = new TrainContext())
@@ -181,7 +158,7 @@ namespace WpfApplication1.ViewModel
 					{
 						var places = context.PLACEs.Where(c => c.ID_CARRIAGE == carriage.ID && c.ID==ticket.ID_PLACE ).ToList();
 
-						foreach (PLACE place in places)
+						foreach (var place in places)
 						{
 							ResultCollection.Add(
 					        new AggregationItem
@@ -192,26 +169,21 @@ namespace WpfApplication1.ViewModel
 								Train = train,
 								StartStation = startStation,
 								EndStation = endStation
-								
 					        });
 						}
 					}
 		        }
-				
 	        }
         }
 
-
 		private bool CanSearch()
 		{
-			return !string.IsNullOrWhiteSpace(StartCityText) && !string.IsNullOrWhiteSpace(EndCityText) ;//&& !string.IsNullOrWhiteSpace(SelectedItem);
+			return !string.IsNullOrWhiteSpace(StartCityText) && !string.IsNullOrWhiteSpace(EndCityText) ;
 		}
-
-
 
         private void OnShowReturningTicketWindow(string e)
         {
-            var handler = ShowReturningTicketWindow;
+            EventHandler<string> handler = ShowReturningTicketWindow;
 	        if (handler != null)
 	        {
 		        handler(this, e);

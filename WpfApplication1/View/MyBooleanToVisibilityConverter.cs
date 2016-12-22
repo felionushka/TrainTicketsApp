@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Data;
 
-namespace WpfApplication1.View
+namespace TrainTicketsApp.View
 {
 	public sealed class MyBooleanToVisibilityConverter : IValueConverter
 	{

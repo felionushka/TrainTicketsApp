@@ -1,4 +1,4 @@
-namespace WpfApplication1.Model
+namespace TrainTicketsApp.Model
 {
 	using System;
 	using System.Data.Entity;

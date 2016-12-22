@@ -1,15 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
-using WpfApplication1.Model;
+using TrainTicketsApp.Model;
 
-namespace WpfApplication1.ViewModel
+namespace TrainTicketsApp.ViewModel
 {
 	class ReturnTicketViewModel : ObservableObject
 	{
@@ -27,28 +23,8 @@ namespace WpfApplication1.ViewModel
 		public ReturnTicketViewModel(string surname)
 		{
 			_surname = surname;
-			SoldTickets = new ObservableCollection<TICKET_SALE>();
-			Tickets = new ObservableCollection<TICKET>();
-			StartStation = new ObservableCollection<STATION>();
-			EndStation = new ObservableCollection<STATION>();
-			Train = new ObservableCollection<TRAIN>();
-			Carriage = new ObservableCollection<CARRIAGE>();
-			Place = new ObservableCollection<PLACE>();
-			Client = new ObservableCollection<CLIENT>();
 			ResultCollection = new ObservableCollection<AggregationItem>();
 		}
-
-		public ObservableCollection<TICKET_SALE> SoldTickets { get; set; }
-		public ObservableCollection<TICKET> Tickets { get; set; }
-		public ObservableCollection<CLIENT> Client { get; set; }
-
-		public ObservableCollection<STATION> StartStation { get; set; }
-		public ObservableCollection<STATION> EndStation { get; set; }
-
-		public ObservableCollection<TRAIN> Train { get; set; }
-
-		public ObservableCollection<CARRIAGE> Carriage { get; set; }
-		public ObservableCollection<PLACE> Place { get; set; }
 
 		public ObservableCollection<AggregationItem> ResultCollection { get; set; }
 
@@ -150,9 +126,6 @@ namespace WpfApplication1.ViewModel
 
 		public void SearchTicket()
 		{
-			SoldTickets.Clear();
-			Tickets.Clear();
-			Client.Clear();
 			ResultCollection.Clear();
 
 			using (var context = new TrainContext())

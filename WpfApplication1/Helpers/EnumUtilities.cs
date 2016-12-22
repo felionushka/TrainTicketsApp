@@ -6,7 +6,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace WpfApplication1.Helpers
+namespace TrainTicketsApp.Helpers
 {
     public static class EnumUtility
     {
