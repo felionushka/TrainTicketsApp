@@ -1,0 +1,503 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Train_ticketsModel1.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="CARRIAGE">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="NUMBER" Type="int" Nullable="false" />
+          <Property Name="TRAIN_NUMBER" Type="int" Nullable="false" />
+          <Property Name="TYPE" Type="nchar" MaxLength="8" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CASHIER">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="NAME" Type="nvarchar" MaxLength="12" Nullable="false" />
+          <Property Name="sURNAME" Type="nvarchar" MaxLength="15" Nullable="false" />
+          <Property Name="LOGIN" Type="nchar" MaxLength="8" Nullable="false" />
+          <Property Name="PASSWORD" Type="nchar" MaxLength="6" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CLIENT">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="NAME" Type="nvarchar" MaxLength="12" Nullable="false" />
+          <Property Name="SURNAME" Type="nvarchar" MaxLength="15" Nullable="false" />
+          <Property Name="PASSPORT_NUMBER" Type="nchar" MaxLength="8" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PLACE">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="NUMBER" Type="int" Nullable="false" />
+          <Property Name="TIER" Type="nchar" MaxLength="4" Nullable="false" />
+          <Property Name="ID_CARRIAGE" Type="int" />
+        </EntityType>
+        <EntityType Name="STATION">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="NAME" Type="nvarchar" MaxLength="15" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TICKET">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="TRAVEL_DATE" Type="date" Nullable="false" />
+          <Property Name="PRICE" Type="numeric" Precision="4" Scale="2" Nullable="false" />
+          <Property Name="STATE" Type="bit" Nullable="false" />
+          <Property Name="ID_PLACE" Type="int" />
+          <Property Name="ID_START_STATION" Type="int" />
+          <Property Name="ID_END_STATION" Type="int" />
+        </EntityType>
+        <EntityType Name="TICKET_SALE">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="SELL_DATE" Type="date" Nullable="false" />
+          <Property Name="ID_CLIENT" Type="int" Nullable="false" />
+          <Property Name="ID_TICKET" Type="int" Nullable="false" />
+          <Property Name="ID_CASHIER" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__PLACE__ID_CARRIA__24927208">
+          <End Role="CARRIAGE" Type="Self.CARRIAGE" Multiplicity="0..1" />
+          <End Role="PLACE" Type="Self.PLACE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CARRIAGE">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="PLACE">
+              <PropertyRef Name="ID_CARRIAGE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__TICKET__ID_END_S__32E0915F">
+          <End Role="STATION" Type="Self.STATION" Multiplicity="0..1" />
+          <End Role="TICKET" Type="Self.TICKET" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="STATION">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TICKET">
+              <PropertyRef Name="ID_END_STATION" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__TICKET__ID_PLACE__25869641">
+          <End Role="PLACE" Type="Self.PLACE" Multiplicity="0..1" />
+          <End Role="TICKET" Type="Self.TICKET" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PLACE">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TICKET">
+              <PropertyRef Name="ID_PLACE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__TICKET__ID_START__31EC6D26">
+          <End Role="STATION" Type="Self.STATION" Multiplicity="0..1" />
+          <End Role="TICKET" Type="Self.TICKET" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="STATION">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TICKET">
+              <PropertyRef Name="ID_START_STATION" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__TICKET_SA__ID_CA__22AA2996">
+          <End Role="CASHIER" Type="Self.CASHIER" Multiplicity="1" />
+          <End Role="TICKET_SALE" Type="Self.TICKET_SALE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CASHIER">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TICKET_SALE">
+              <PropertyRef Name="ID_CASHIER" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__TICKET_SA__ID_CL__1DE57479">
+          <End Role="CLIENT" Type="Self.CLIENT" Multiplicity="1" />
+          <End Role="TICKET_SALE" Type="Self.TICKET_SALE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CLIENT">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TICKET_SALE">
+              <PropertyRef Name="ID_CLIENT" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__TICKET_SA__ID_TI__1ED998B2">
+          <End Role="TICKET" Type="Self.TICKET" Multiplicity="1" />
+          <End Role="TICKET_SALE" Type="Self.TICKET_SALE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TICKET">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TICKET_SALE">
+              <PropertyRef Name="ID_TICKET" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Train_ticketsModel1StoreContainer">
+          <EntitySet Name="CARRIAGE" EntityType="Self.CARRIAGE" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CASHIER" EntityType="Self.CASHIER" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CLIENT" EntityType="Self.CLIENT" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PLACE" EntityType="Self.PLACE" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="STATION" EntityType="Self.STATION" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TICKET" EntityType="Self.TICKET" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TICKET_SALE" EntityType="Self.TICKET_SALE" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__PLACE__ID_CARRIA__24927208" Association="Self.FK__PLACE__ID_CARRIA__24927208">
+            <End Role="CARRIAGE" EntitySet="CARRIAGE" />
+            <End Role="PLACE" EntitySet="PLACE" />
+          </AssociationSet>
+          <AssociationSet Name="FK__TICKET__ID_END_S__32E0915F" Association="Self.FK__TICKET__ID_END_S__32E0915F">
+            <End Role="STATION" EntitySet="STATION" />
+            <End Role="TICKET" EntitySet="TICKET" />
+          </AssociationSet>
+          <AssociationSet Name="FK__TICKET__ID_PLACE__25869641" Association="Self.FK__TICKET__ID_PLACE__25869641">
+            <End Role="PLACE" EntitySet="PLACE" />
+            <End Role="TICKET" EntitySet="TICKET" />
+          </AssociationSet>
+          <AssociationSet Name="FK__TICKET__ID_START__31EC6D26" Association="Self.FK__TICKET__ID_START__31EC6D26">
+            <End Role="STATION" EntitySet="STATION" />
+            <End Role="TICKET" EntitySet="TICKET" />
+          </AssociationSet>
+          <AssociationSet Name="FK__TICKET_SA__ID_CA__22AA2996" Association="Self.FK__TICKET_SA__ID_CA__22AA2996">
+            <End Role="CASHIER" EntitySet="CASHIER" />
+            <End Role="TICKET_SALE" EntitySet="TICKET_SALE" />
+          </AssociationSet>
+          <AssociationSet Name="FK__TICKET_SA__ID_CL__1DE57479" Association="Self.FK__TICKET_SA__ID_CL__1DE57479">
+            <End Role="CLIENT" EntitySet="CLIENT" />
+            <End Role="TICKET_SALE" EntitySet="TICKET_SALE" />
+          </AssociationSet>
+          <AssociationSet Name="FK__TICKET_SA__ID_TI__1ED998B2" Association="Self.FK__TICKET_SA__ID_TI__1ED998B2">
+            <End Role="TICKET" EntitySet="TICKET" />
+            <End Role="TICKET_SALE" EntitySet="TICKET_SALE" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Train_ticketsModel1" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="CARRIAGE">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="NUMBER" Type="Int32" Nullable="false" />
+          <Property Name="TRAIN_NUMBER" Type="Int32" Nullable="false" />
+          <Property Name="TYPE" Type="String" MaxLength="8" FixedLength="true" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="PLACE" Relationship="Self.FK__PLACE__ID_CARRIA__24927208" FromRole="CARRIAGE" ToRole="PLACE" />
+        </EntityType>
+        <EntityType Name="CASHIER">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="NAME" Type="String" MaxLength="12" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="sURNAME" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="LOGIN" Type="String" MaxLength="8" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="PASSWORD" Type="String" MaxLength="6" FixedLength="true" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="TICKET_SALE" Relationship="Self.FK__TICKET_SA__ID_CA__22AA2996" FromRole="CASHIER" ToRole="TICKET_SALE" />
+        </EntityType>
+        <EntityType Name="CLIENT">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="NAME" Type="String" MaxLength="12" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="SURNAME" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PASSPORT_NUMBER" Type="String" MaxLength="8" FixedLength="true" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="TICKET_SALE" Relationship="Self.FK__TICKET_SA__ID_CL__1DE57479" FromRole="CLIENT" ToRole="TICKET_SALE" />
+        </EntityType>
+        <EntityType Name="PLACE">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="NUMBER" Type="Int32" Nullable="false" />
+          <Property Name="TIER" Type="String" MaxLength="4" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="ID_CARRIAGE" Type="Int32" />
+          <NavigationProperty Name="CARRIAGE" Relationship="Self.FK__PLACE__ID_CARRIA__24927208" FromRole="PLACE" ToRole="CARRIAGE" />
+          <NavigationProperty Name="TICKET" Relationship="Self.FK__TICKET__ID_PLACE__25869641" FromRole="PLACE" ToRole="TICKET" />
+        </EntityType>
+        <EntityType Name="STATION">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="NAME" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="TICKET" Relationship="Self.FK__TICKET__ID_END_S__32E0915F" FromRole="STATION" ToRole="TICKET" />
+          <NavigationProperty Name="TICKET1" Relationship="Self.FK__TICKET__ID_START__31EC6D26" FromRole="STATION" ToRole="TICKET" />
+        </EntityType>
+        <EntityType Name="TICKET">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="TRAVEL_DATE" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="PRICE" Type="Decimal" Precision="4" Scale="2" Nullable="false" />
+          <Property Name="STATE" Type="Boolean" Nullable="false" />
+          <Property Name="ID_PLACE" Type="Int32" />
+          <Property Name="ID_START_STATION" Type="Int32" />
+          <Property Name="ID_END_STATION" Type="Int32" />
+          <NavigationProperty Name="PLACE" Relationship="Self.FK__TICKET__ID_PLACE__25869641" FromRole="TICKET" ToRole="PLACE" />
+          <NavigationProperty Name="STATION" Relationship="Self.FK__TICKET__ID_END_S__32E0915F" FromRole="TICKET" ToRole="STATION" />
+          <NavigationProperty Name="STATION1" Relationship="Self.FK__TICKET__ID_START__31EC6D26" FromRole="TICKET" ToRole="STATION" />
+          <NavigationProperty Name="TICKET_SALE" Relationship="Self.FK__TICKET_SA__ID_TI__1ED998B2" FromRole="TICKET" ToRole="TICKET_SALE" />
+        </EntityType>
+        <EntityType Name="TICKET_SALE">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="SELL_DATE" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="ID_CLIENT" Type="Int32" Nullable="false" />
+          <Property Name="ID_TICKET" Type="Int32" Nullable="false" />
+          <Property Name="ID_CASHIER" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="CASHIER" Relationship="Self.FK__TICKET_SA__ID_CA__22AA2996" FromRole="TICKET_SALE" ToRole="CASHIER" />
+          <NavigationProperty Name="CLIENT" Relationship="Self.FK__TICKET_SA__ID_CL__1DE57479" FromRole="TICKET_SALE" ToRole="CLIENT" />
+          <NavigationProperty Name="TICKET" Relationship="Self.FK__TICKET_SA__ID_TI__1ED998B2" FromRole="TICKET_SALE" ToRole="TICKET" />
+        </EntityType>
+        <Association Name="FK__PLACE__ID_CARRIA__24927208">
+          <End Role="CARRIAGE" Type="Self.CARRIAGE" Multiplicity="0..1" />
+          <End Role="PLACE" Type="Self.PLACE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CARRIAGE">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="PLACE">
+              <PropertyRef Name="ID_CARRIAGE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__TICKET_SA__ID_CA__22AA2996">
+          <End Role="CASHIER" Type="Self.CASHIER" Multiplicity="1" />
+          <End Role="TICKET_SALE" Type="Self.TICKET_SALE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CASHIER">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TICKET_SALE">
+              <PropertyRef Name="ID_CASHIER" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__TICKET_SA__ID_CL__1DE57479">
+          <End Role="CLIENT" Type="Self.CLIENT" Multiplicity="1" />
+          <End Role="TICKET_SALE" Type="Self.TICKET_SALE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CLIENT">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TICKET_SALE">
+              <PropertyRef Name="ID_CLIENT" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__TICKET__ID_PLACE__25869641">
+          <End Role="PLACE" Type="Self.PLACE" Multiplicity="0..1" />
+          <End Role="TICKET" Type="Self.TICKET" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PLACE">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TICKET">
+              <PropertyRef Name="ID_PLACE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__TICKET__ID_END_S__32E0915F">
+          <End Role="STATION" Type="Self.STATION" Multiplicity="0..1" />
+          <End Role="TICKET" Type="Self.TICKET" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="STATION">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TICKET">
+              <PropertyRef Name="ID_END_STATION" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__TICKET__ID_START__31EC6D26">
+          <End Role="STATION" Type="Self.STATION" Multiplicity="0..1" />
+          <End Role="TICKET" Type="Self.TICKET" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="STATION">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TICKET">
+              <PropertyRef Name="ID_START_STATION" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__TICKET_SA__ID_TI__1ED998B2">
+          <End Role="TICKET" Type="Self.TICKET" Multiplicity="1" />
+          <End Role="TICKET_SALE" Type="Self.TICKET_SALE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TICKET">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TICKET_SALE">
+              <PropertyRef Name="ID_TICKET" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Train_ticketsEntities1" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="CARRIAGE" EntityType="Self.CARRIAGE" />
+          <EntitySet Name="CASHIER" EntityType="Self.CASHIER" />
+          <EntitySet Name="CLIENT" EntityType="Self.CLIENT" />
+          <EntitySet Name="PLACE" EntityType="Self.PLACE" />
+          <EntitySet Name="STATION" EntityType="Self.STATION" />
+          <EntitySet Name="TICKET" EntityType="Self.TICKET" />
+          <EntitySet Name="TICKET_SALE" EntityType="Self.TICKET_SALE" />
+          <AssociationSet Name="FK__PLACE__ID_CARRIA__24927208" Association="Self.FK__PLACE__ID_CARRIA__24927208">
+            <End Role="CARRIAGE" EntitySet="CARRIAGE" />
+            <End Role="PLACE" EntitySet="PLACE" />
+          </AssociationSet>
+          <AssociationSet Name="FK__TICKET_SA__ID_CA__22AA2996" Association="Self.FK__TICKET_SA__ID_CA__22AA2996">
+            <End Role="CASHIER" EntitySet="CASHIER" />
+            <End Role="TICKET_SALE" EntitySet="TICKET_SALE" />
+          </AssociationSet>
+          <AssociationSet Name="FK__TICKET_SA__ID_CL__1DE57479" Association="Self.FK__TICKET_SA__ID_CL__1DE57479">
+            <End Role="CLIENT" EntitySet="CLIENT" />
+            <End Role="TICKET_SALE" EntitySet="TICKET_SALE" />
+          </AssociationSet>
+          <AssociationSet Name="FK__TICKET__ID_PLACE__25869641" Association="Self.FK__TICKET__ID_PLACE__25869641">
+            <End Role="PLACE" EntitySet="PLACE" />
+            <End Role="TICKET" EntitySet="TICKET" />
+          </AssociationSet>
+          <AssociationSet Name="FK__TICKET__ID_END_S__32E0915F" Association="Self.FK__TICKET__ID_END_S__32E0915F">
+            <End Role="STATION" EntitySet="STATION" />
+            <End Role="TICKET" EntitySet="TICKET" />
+          </AssociationSet>
+          <AssociationSet Name="FK__TICKET__ID_START__31EC6D26" Association="Self.FK__TICKET__ID_START__31EC6D26">
+            <End Role="STATION" EntitySet="STATION" />
+            <End Role="TICKET" EntitySet="TICKET" />
+          </AssociationSet>
+          <AssociationSet Name="FK__TICKET_SA__ID_TI__1ED998B2" Association="Self.FK__TICKET_SA__ID_TI__1ED998B2">
+            <End Role="TICKET" EntitySet="TICKET" />
+            <End Role="TICKET_SALE" EntitySet="TICKET_SALE" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Train_ticketsModel1StoreContainer" CdmEntityContainer="Train_ticketsEntities1">
+          <EntitySetMapping Name="CARRIAGE">
+            <EntityTypeMapping TypeName="Train_ticketsModel1.CARRIAGE">
+              <MappingFragment StoreEntitySet="CARRIAGE">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="NUMBER" ColumnName="NUMBER" />
+                <ScalarProperty Name="TRAIN_NUMBER" ColumnName="TRAIN_NUMBER" />
+                <ScalarProperty Name="TYPE" ColumnName="TYPE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CASHIER">
+            <EntityTypeMapping TypeName="Train_ticketsModel1.CASHIER">
+              <MappingFragment StoreEntitySet="CASHIER">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="NAME" ColumnName="NAME" />
+                <ScalarProperty Name="sURNAME" ColumnName="sURNAME" />
+                <ScalarProperty Name="LOGIN" ColumnName="LOGIN" />
+                <ScalarProperty Name="PASSWORD" ColumnName="PASSWORD" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CLIENT">
+            <EntityTypeMapping TypeName="Train_ticketsModel1.CLIENT">
+              <MappingFragment StoreEntitySet="CLIENT">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="NAME" ColumnName="NAME" />
+                <ScalarProperty Name="SURNAME" ColumnName="SURNAME" />
+                <ScalarProperty Name="PASSPORT_NUMBER" ColumnName="PASSPORT_NUMBER" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PLACE">
+            <EntityTypeMapping TypeName="Train_ticketsModel1.PLACE">
+              <MappingFragment StoreEntitySet="PLACE">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="NUMBER" ColumnName="NUMBER" />
+                <ScalarProperty Name="TIER" ColumnName="TIER" />
+                <ScalarProperty Name="ID_CARRIAGE" ColumnName="ID_CARRIAGE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="STATION">
+            <EntityTypeMapping TypeName="Train_ticketsModel1.STATION">
+              <MappingFragment StoreEntitySet="STATION">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="NAME" ColumnName="NAME" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TICKET">
+            <EntityTypeMapping TypeName="Train_ticketsModel1.TICKET">
+              <MappingFragment StoreEntitySet="TICKET">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="TRAVEL_DATE" ColumnName="TRAVEL_DATE" />
+                <ScalarProperty Name="PRICE" ColumnName="PRICE" />
+                <ScalarProperty Name="STATE" ColumnName="STATE" />
+                <ScalarProperty Name="ID_PLACE" ColumnName="ID_PLACE" />
+                <ScalarProperty Name="ID_START_STATION" ColumnName="ID_START_STATION" />
+                <ScalarProperty Name="ID_END_STATION" ColumnName="ID_END_STATION" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TICKET_SALE">
+            <EntityTypeMapping TypeName="Train_ticketsModel1.TICKET_SALE">
+              <MappingFragment StoreEntitySet="TICKET_SALE">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="SELL_DATE" ColumnName="SELL_DATE" />
+                <ScalarProperty Name="ID_CLIENT" ColumnName="ID_CLIENT" />
+                <ScalarProperty Name="ID_TICKET" ColumnName="ID_TICKET" />
+                <ScalarProperty Name="ID_CASHIER" ColumnName="ID_CASHIER" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

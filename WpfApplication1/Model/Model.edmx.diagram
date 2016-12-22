@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="a339372c92694fd286ce7a86dac020c5" Name="Diagram1">
+        <EntityTypeShape EntityType="Train_ticketsModel1.CARRIAGE" Width="1.5" PointX="1.5" PointY="8.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Train_ticketsModel1.CASHIER" Width="1.5" PointX="3" PointY="5.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Train_ticketsModel1.CLIENT" Width="1.5" PointX="3" PointY="11.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Train_ticketsModel1.PLACE" Width="1.5" PointX="0.75" PointY="5.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Train_ticketsModel1.STATION" Width="1.5" PointX="0.75" PointY="1.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Train_ticketsModel1.TICKET" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="Train_ticketsModel1.TICKET_SALE" Width="1.5" PointX="5.25" PointY="1.25" IsExpanded="true" />
+        <AssociationConnector Association="Train_ticketsModel1.FK__PLACE__ID_CARRIA__24927208" ManuallyRouted="false" />
+        <AssociationConnector Association="Train_ticketsModel1.FK__TICKET_SA__ID_CA__22AA2996" ManuallyRouted="false" />
+        <AssociationConnector Association="Train_ticketsModel1.FK__TICKET_SA__ID_CL__1DE57479" ManuallyRouted="false" />
+        <AssociationConnector Association="Train_ticketsModel1.FK__TICKET__ID_PLACE__25869641" ManuallyRouted="false" />
+        <AssociationConnector Association="Train_ticketsModel1.FK__TICKET__ID_END_S__32E0915F" ManuallyRouted="false" />
+        <AssociationConnector Association="Train_ticketsModel1.FK__TICKET__ID_START__31EC6D26" ManuallyRouted="false" />
+        <AssociationConnector Association="Train_ticketsModel1.FK__TICKET_SA__ID_TI__1ED998B2" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

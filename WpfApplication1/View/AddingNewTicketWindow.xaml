@@ -1,0 +1,125 @@
+﻿<Window x:Class="WpfApplication1.View.AddingNewTicketWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+				xmlns:res="clr-namespace:WpfApplication1.Resources"
+
+        Title="Оформлення квитка" Height="400" Width="700">
+	<Window.Resources>
+		<ResourceDictionary Source="../Resources/Styles.xaml"/>
+	</Window.Resources>
+    <Grid Style="{StaticResource BackgroundGridStyle}">
+		
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="*"/>
+			<ColumnDefinition Width="*"/>
+			
+		</Grid.ColumnDefinitions>
+		
+		<Grid.RowDefinitions>
+			<RowDefinition Height="80"/>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="*"/>
+		</Grid.RowDefinitions>
+		
+		<TextBlock
+			Grid.Row="0"
+			Grid.ColumnSpan="2"
+			HorizontalAlignment="Center"
+			VerticalAlignment="Center"
+			Text="{Binding Source={x:Static res:StringResource.CreateTicketWelcomeString}}"/>
+		
+		<TextBlock 
+			Grid.Column="0"
+			Grid.Row="1"
+			HorizontalAlignment="Right"
+			VerticalAlignment="Center"
+			Text="{Binding Source={x:Static res:StringResource.SurnameTextBox}}"/>
+		
+		<TextBox
+			Grid.Column="1"
+			Grid.Row="1"
+			HorizontalAlignment="Left"
+			VerticalAlignment="Center"
+			Margin="15"
+			Width="150"
+			Text="{Binding SurnameText}"
+			/>
+		
+		<TextBlock
+			Grid.Row="2"
+			Grid.Column="0"
+			HorizontalAlignment="Right"
+			VerticalAlignment="Center"
+			Text="{Binding Source={x:Static res:StringResource.NameTextBox}}"
+			/>
+
+		<TextBox
+			Grid.Column="1"
+			Grid.Row="2"
+			HorizontalAlignment="Left"
+			VerticalAlignment="Center"
+			Margin="15"
+			Width="150"
+			Text="{Binding NameText}"
+			/>
+
+		<TextBlock
+			Grid.Row="3"
+			Grid.Column="0"
+			HorizontalAlignment="Right"
+			VerticalAlignment="Center"
+			
+			Text="{Binding Source={x:Static res:StringResource.PassportTextBox}}"
+			/>
+
+		<TextBox
+			Grid.Column="1"
+			Grid.Row="3"
+			HorizontalAlignment="Left"
+			VerticalAlignment="Center"
+			Width="150"
+			Margin="15"
+			Text="{Binding PassportText}"
+			/>
+		
+		<Button
+			Grid.Row="4"
+			Grid.Column="0"
+			Height="50"
+			Width="120"
+			Content="{Binding Source={x:Static res:StringResource.CreateTicketButtonText}}"
+			Command="{Binding CreateTicketCommand}"/>
+		<Button
+			Grid.Column="1"
+			Grid.Row="4"
+			Height="50"
+			Width="120"
+			Content="{Binding Source={x:Static res:StringResource.CancelButton}}"
+			IsCancel="True"/>
+		<Label
+			Grid.ColumnSpan="2"
+			Grid.Row="5"
+			HorizontalAlignment="Center"
+			Height="60"
+			VerticalAlignment="Center"
+			Content="{Binding SumToPay}"
+			/>
+		
+		<Button
+			Grid.Row="6"
+			Grid.ColumnSpan="2"
+			HorizontalAlignment="Center"
+			VerticalAlignment="Center"
+			Width="60"
+			Height="40"
+			Content="{Binding Source={x:Static res:StringResource.OKButton}}"
+			IsCancel="True"
+			/>
+
+
+	</Grid>
+</Window>

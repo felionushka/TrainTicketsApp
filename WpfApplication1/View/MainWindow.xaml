@@ -1,0 +1,77 @@
+﻿<Window x:Class="WpfApplication1.View.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:view="clr-namespace:WpfApplication1.View"
+		xmlns:res="clr-namespace:WpfApplication1.Resources"
+        Title="Вхід до системи" Height="400" Width="600">
+	<Window.Background>
+		<ImageBrush ImageSource="/WpfApplication1;component/Resources/login.jpg" Stretch="UniformToFill" Opacity="0.9"/>
+	</Window.Background>
+    <Grid>
+		<Grid.Resources>
+			<view:MyBooleanToVisibilityConverter x:Key="MyBooleanToVisibilityConverter" />
+		</Grid.Resources>
+		
+		
+		<Grid.RowDefinitions>
+			<RowDefinition Height="120"/>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="*"/>
+		</Grid.RowDefinitions>
+		
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="*"/>
+			<ColumnDefinition Width="*"/>
+		</Grid.ColumnDefinitions>
+		
+		<TextBlock
+			Grid.ColumnSpan="2"
+			
+			Text="{Binding Source={x:Static res:StringResource.InvalidLogin}}"
+			VerticalAlignment="Center"
+			HorizontalAlignment="Center"
+			Visibility="{Binding IsErrorMessageVisible, Converter={StaticResource MyBooleanToVisibilityConverter}}"/>
+		
+		<TextBlock
+			Grid.Row="1"
+			Grid.Column="0"
+			HorizontalAlignment="Right"
+			VerticalAlignment="Center"
+			Text="{Binding Source={x:Static res:StringResource.LoginBox}}"/>
+		
+		<TextBox
+			Grid.Row="1"
+			Grid.Column="1"
+			HorizontalAlignment="Left"
+			Margin="5"
+			Width="150"
+			Text="{Binding LoginText, UpdateSourceTrigger=PropertyChanged}"/>
+		
+		<TextBlock
+			Grid.Row="2"
+			Grid.Column="0"
+			HorizontalAlignment="Right"
+			VerticalAlignment="Center"
+			Text="{Binding Source={x:Static res:StringResource.PasswordBox}}"/>
+
+		<TextBox
+			Grid.Row="2"
+			Grid.Column="1"
+			HorizontalAlignment="Left"
+			Margin="5"
+			Width="150"
+			Text="{Binding PasswordText, UpdateSourceTrigger=PropertyChanged}"/>
+		
+		<Button
+			Grid.Row="3"
+			Grid.ColumnSpan="2"
+			Width="100"
+			Height="35"
+			HorizontalAlignment="Center"
+			Content="{Binding Source={x:Static res:StringResource.AutorisationButton}}"
+			Command="{Binding LoginCommand}"/>
+
+	</Grid>
+</Window>

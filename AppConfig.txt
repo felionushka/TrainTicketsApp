@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<configuration>
+  <connectionStrings> 
+  </connectionStrings>
+
+ <oracle.dataaccess.client>
+    <settings>
+      <add name="HR.UPDATE_AND_RETURN_SALARY.RefCursor.NEW_SALARY" value="implicitRefCursor bindinfo='mode=Output'" />
+      <add name="HR.UPDATE_AND_RETURN_SALARY.RefCursorMetaData.NEW_SALARY.Column.0" value="implicitRefCursor metadata='ColumnName=FIRST_NAME;BaseColumnName=FIRST_NAME;BaseSchemaName=HR;BaseTableName=EMPLOYEES;NATIVEDATATYPE=Varchar2;ProviderType=Varchar2'" />
+      <add name="HR.UPDATE_AND_RETURN_SALARY.RefCursorMetaData.NEW_SALARY.Column.1" value="implicitRefCursor metadata='ColumnName=SALARY;NATIVEDATATYPE=Number;ProviderType=Int32'" />
+    </settings>
+  </oracle.dataaccess.client>
+	
+</configuration>
